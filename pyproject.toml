@@ -1,6 +1,6 @@
 [project]
 name = "dataclass_toolkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utilities for working with Python dataclasses: serialize and deserialize to list with nested support."
 authors = [
     { name = "Klishin Oleg", email = "klishinoleg@gmail.com" }
