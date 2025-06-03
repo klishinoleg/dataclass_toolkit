@@ -22,6 +22,12 @@ class Nested:
 
 
 @dataclass
+class NestedOptional:
+    a: int
+    b: Nested | None
+
+
+@dataclass
 class WithList:
     items: List[Simple]
 
@@ -61,6 +67,16 @@ def test_list_of_dataclasses():
 
     restored = deserialize_list_to_dataclass(WithList, serialized)
     assert restored == obj
+
+
+def test_list_to_nested_optional():
+    simple1 = Simple(x=10, y="hello")
+    nested = Nested(a=30, b=simple1)
+    nested_optional = NestedOptional(a=20, b=nested)
+    serialized = serialize_dataclass_to_list(nested_optional)
+    assert serialized == [20, [30, [10, "hello"]]]
+    unserialized = deserialize_list_to_dataclass(NestedOptional, serialized)
+    assert unserialized == nested_optional
 
 
 def test_invalid_serialize_non_dataclass():
